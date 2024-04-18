@@ -1,3 +1,6 @@
+// selection sort algo to sort an array of integers in decreasing order
+
+
 #include<iostream>
 using namespace std;
 
