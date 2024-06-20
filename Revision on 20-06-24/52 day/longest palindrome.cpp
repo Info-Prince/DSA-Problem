@@ -1,39 +1,41 @@
 class Solution {
 public:
-    string sortSentence(string s) {
-        vector<string>ans(10);
-        string temp; //it will use to hold word temporary and ultimately we'll     take use for hold sorted string and will return this
-        int count = 0; // it'll store no of words
+    int longestPalindrome(string s) {
+        vector<int>lower(26,0);
+        vector<int>upper(26,0);
+        bool odd = 0;
+        int ans=0;
 
+        //storing occurance of each char
         for(int i = 0; i<s.size(); i++)
         {
-            if(s[i]==' ')
-            {
-               int pos = temp[temp.size()-1] - '0';
-               temp.pop_back();
-               ans[pos]=temp;
-               temp.clear();
-               count++; 
-            }
+            if(s[i] >= 'a' && s[i] <= 'z')
+            lower[s[i]-'a']++;
             else
-            temp+=s[i];
+            upper[s[i]-'A']++;
         }
-        //since at last there is no space so handle last word
-        int pos = temp[temp.size()-1] - '0';
-        temp.pop_back();
-        ans[pos]=temp;
-        temp.clear();
-        count++;
 
-        //now return sorted string which has been holded in vector ans
-        for(int i = 1; i<=count; i++)
+        for(int i = 0; i<26; i++)
         {
-            temp+=ans[i];
-            temp+=' ';
+            if(lower[i]%2 == 0)
+            ans += lower[i];
+            else
+            {
+                ans+=lower[i]-1;
+                odd = 1;
+            }
         }
-        //at last we have one extra space so handle it here and return it
-        temp.pop_back();
-        return temp;
 
+        for(int i = 0; i<26; i++)
+        {
+            if(upper[i]%2 == 0)
+            ans+=upper[i];
+            else {
+                ans+= upper[i]-1;
+                odd=1;
+            }
+        }
+
+        return ans+odd;
     }
 };
